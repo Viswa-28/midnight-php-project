@@ -12,7 +12,7 @@ include('include/head.php');
 <ul>
   <li><a href="">Sales </a></li>
   <li><a href="./trending-products.php">trending</a></li>
-  <li><a href="">contact</a></li>
+  <li><a href="contact.php">contact</a></li>
   <li><a href="">Sales 4</a></li>
 </ul>
 
@@ -40,8 +40,8 @@ while($row=$result->fetch_assoc())
         <p class="product-price">₹' . $price . '</p>
       
         <div class="cred-con">
-            <button class="cred-button"><a href="#">update</a></button>
-            <button class="cred-button"><a href="#">delete</a></button>
+            <button class="cred-button"><a href="ubdate-product.php?id=' . $row['id'] . '">update</a></button>
+            <button class="cred-button"><a href="delete-product.php?id=' . $row['id'] . '">delete</a></button>
         </div>
       </div>';
 
@@ -50,7 +50,6 @@ while($row=$result->fetch_assoc())
 
     
 
-    <button><a href="add-product.php" class="primary-btn create">create product</a></button>
 
 
 
@@ -59,4 +58,5 @@ while($row=$result->fetch_assoc())
 
 
 
+<button><a href="add-product.php" class="primary-btn create">create product</a></button>
 </div>

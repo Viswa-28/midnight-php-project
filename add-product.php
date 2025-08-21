@@ -20,6 +20,7 @@ if (isset($_POST['submit'])) {
 
         if ($stmt->execute()) {
             echo "Product uploaded successfully!";
+            header("Location: trending-products.php");
         } else {
             echo "Database error: " . $stmt->error;
         }

@@ -11,6 +11,7 @@
 
 .parent{
     display: flex;
+    /* background-color: #ddd; */
 
 }
 
@@ -82,30 +83,45 @@
     width: calc(100% - 240px);
     height: 100vh;
     margin-left: 240px;
-    transition: margin-left 0.3s ease;
+    /* transition: margin-left 0.3s ease; */
     padding: 20px;
     min-height: 100vh;
-    background-color: #e70000;
+    /* background-color: #e70000; */
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
     /* flex-direction: column; */}
 
 .trending-products .product{
-    height: 50%;
+    height: 100%;
     width: 30%;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     /* flex-wrap: wrap; */
     align-items: center;
     flex-direction: column;
     color: wheat;
-    gap: 20px;
+    /* gap: 20px; */
     font-size: 1.5rem;
+    /* overflow: hidden; */
+    /* margin-top: 50px; */
     
 }
 .trending-products .product img{
-    height: 100%;
-    width: 100%;
+    height: 50%;
+    width: 70%;
     border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(124, 60, 173, 0.5);
+    object-fit: cover;
+    transition: all 0.3s ease;
+    object-position: center;
+}
+.product-name, .product-price{
+    color: #000000;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .trending-products .product-description{
     height: 50%;
@@ -114,11 +130,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: wheat;
+    color: rgb(0, 0, 0);
     gap: 20px;
     font-size: 1.5rem;
     overflow: hidden;
+
 }
+
 
 .cred-con{
     display: flex;
@@ -148,16 +166,24 @@
     color: #fff;
 }
 
-.button{
+.create{
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #fff;
+    color: #eeeaea;
     gap: 20px;
     font-size: 1.5rem;
     padding: 20px;
-    height: 50px;
-    width: 50px;
+    height:150px;
+    width: 150px;
+    background-color: #000000;
+    text-decoration: none;
+    position: fixed;
+    z-index: 100;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2)
 }
 
 
@@ -209,4 +235,68 @@ form .submit {
     font-size: 15px;
     cursor: pointer;
     transition: background 0.3s ease;
+}
+
+
+
+/* delete */
+
+.delete-title {
+    color: #d9534f; /* Bootstrap danger red */
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.delete-title strong {
+    color: #b22222; /* darker red for product name */
+}
+
+/* Form container */
+.delete-form {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Hidden input */
+.delete-id {
+    display: none; /* hide the id input */
+}
+
+/* Delete button */
+.delete-button {
+    background-color: #d9534f;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #c9302c;
+}
+
+/* Cancel button inside the anchor */
+.delete-form a button[type="button"] {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.delete-form a button[type="button"]:hover {
+    background-color: #5a6268;
+}
+
+/* Remove underline from the link */
+.delete-form a {
+    text-decoration: none;
 }

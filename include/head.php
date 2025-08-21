@@ -54,6 +54,12 @@ elseif ($page == 'trending-products.php') {
 elseif ($page == 'add-product.php') {
     echo '<link rel="stylesheet" href="./css/dashboard.css">';
 }
+elseif ($page == 'ubdate-product.php') {
+    echo '<link rel="stylesheet" href="./css/dashboard.css">';
+}
+elseif ($page == 'delete-product.php') {
+    echo '<link rel="stylesheet" href="./css/dashboard.css">';
+}
 ?>
 
   
