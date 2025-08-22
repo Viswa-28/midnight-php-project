@@ -24,7 +24,7 @@ include('include/navbar.php');
 
     </p>
     <div class="btn-container">
-      <a href="./Noir.html"> <button class="primary-btn">View Product</button></a>
+      <button class="primary-btn">View Product</button>
     </div>
   </div>
   <div class="banner-image">
@@ -43,7 +43,7 @@ include('include/navbar.php');
   <div class="card-container">
 
 
-    <div class="card" style="background-image: url('./images/second-one.png');">
+    <!-- <div class="card" style="background-image: url('./images/second-one.png');">
       <div class="overlay">
         <div class="image-name">Midnight Elegance</div>
       </div>
@@ -63,7 +63,25 @@ include('include/navbar.php');
       <div class="overlay">
         <div class="image-name">Glam After Dark</div>
       </div>
+    </div> -->
+
+
+    <?php
+    $sql = "SELECT * FROM tproduct";
+    $result= $conn->query($sql);
+    while($row=$result->fetch_assoc()){
+
+    ?>
+   <a href="./noir.php?id=<?php echo $row['id']; ?>">
+     <div class="card" style="background-image: url('<?php echo $row['image']; ?>');">
+      <div class="overlay">
+        <div class="image-name"><?php echo $row['name']; ?></div>
+      </div>
     </div>
+   </a>
+    <?php
+    }
+    ?>
 
   </div>
 </section>

@@ -300,3 +300,37 @@ form .submit {
 .delete-form a {
     text-decoration: none;
 }
+
+
+
+/* contact */
+
+.contact-dash{
+    /* background-color: #b22222; */
+    height: 100vh;
+    padding: 20px;
+    width: calc(100% - 240px);
+    margin-left: 240px;
+    transition: margin-left 0.3s ease;
+}
+.contact-dash .message{
+    background-color: #000000;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+.contact-dash .message p{
+    margin-bottom: 10px;
+}
+
+.table-row{
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+}

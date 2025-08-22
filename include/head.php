@@ -36,7 +36,18 @@ $page=basename($_SERVER['PHP_SELF']);
 if ($page == 'index.php') {
     echo '<link rel="stylesheet" href="./css/style.css">';
    echo '<link rel="stylesheet" href="./css/common.css">';
-} elseif ($page == 'register.php') {
+} 
+elseif($page=='noir.php'){
+  echo '<link rel="stylesheet" href="./css/product.css">';
+  echo '<link rel="stylesheet" href="./css/common.css">';
+}
+elseif($page=='cart.php'){
+  echo '<link rel="stylesheet" href="./css/cart.css">';
+  echo '<link rel="stylesheet" href="./css/common.css">';
+}
+
+
+elseif ($page == 'register.php') {
     echo '<link rel="stylesheet" href="./css/register.css">';
      echo '<link rel="stylesheet" href="./css/common.css">';
 } elseif ($page == 'login.php') {
@@ -58,6 +69,9 @@ elseif ($page == 'ubdate-product.php') {
     echo '<link rel="stylesheet" href="./css/dashboard.css">';
 }
 elseif ($page == 'delete-product.php') {
+    echo '<link rel="stylesheet" href="./css/dashboard.css">';
+}
+elseif ($page == 'contact.php') {
     echo '<link rel="stylesheet" href="./css/dashboard.css">';
 }
 ?>
