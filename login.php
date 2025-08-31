@@ -1,67 +1,62 @@
 <?php
 session_start();
 include('include/config.php');
+include('include/head.php');
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST["email"]);
     $password = trim($_POST["password"]);
 
-    if (empty($email) || empty($password)) {  
+    // Check if fields are empty
+    if (empty($email) || empty($password)) {
         $error = "Please fill in all fields.";
     } else {
-        $query = "SELECT * FROM users WHERE email = ?";
-        $stmt = mysqli_prepare($conn, $query);
-        // mysqli_stmt_bind_param($stmt, "s", $email);
-        // mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+        // Prepare SQL query to check user credentials in the 'register' table
+        $sql = "SELECT * FROM register WHERE email = ? AND password = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $email, $password);  // Binding parameters (email and password)
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            if (password_verify($password, $row["password"])) {
-                // Successful login
-                $_SESSION["user_id"] = $row["id"];
-                $_SESSION["username"] = $row["username"];
-                $_SESSION["email"] = $row["email"];
-                $_SESSION["role"] = $row["role"];
+        if ($result->num_rows == 1) {
+            // Fetch user data
+            $row = $result->fetch_assoc();
 
-                if ($row["role"] == "admin") {
-                    header("Location: dashboard.php");
-                    exit();
-                } else {
-                    header("Location: index.php");
-                    exit();
-                }
+            $name = $row['username'];
+            $role = $row['role'];
+            $id = $row['id'];
+
+            // Set session variables
+            $_SESSION['user_id'] = $id;
+            $_SESSION['username'] = $name;
+            $_SESSION['role'] = $role;
+            $_SESSION['email'] = $email;
+
+            // Redirect based on user role
+            if ($role == "admin") {
+                header("Location: sales.php");  // Admin dashboard
+                exit();
             } else {
-                $error = "Invalid password.";
+                header("Location: index.php");  // User homepage
+                exit();
             }
         } else {
-            $error = "Email does not exist.";
+            $error = "Invalid email or password.";
         }
     }
 }
-mysqli_close($conn);
 ?>
-<?php include('include/head.php'); ?> <!-- include AFTER PHP logic -->
 
+<!-- HTML Form -->
 <div class="login-form">
-  <h2>Login</h2>
+    <form action="" method="post">
+        <h2>Login</h2>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
 
-  <!-- Show error if exists -->
-  <?php if (!empty($error)): ?>
-    <p style="color:red;"><?php echo $error; ?></p>
-  <?php endif; ?>
-
-  <form method="post">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-    
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-    
-    <button type="submit">Login</button>
-  </form>
-  
-  <p>Don't have an account? <a href="register.php">Sign up</a></p>
-  <p>Continue as guest <a href="index.php">Continue</a></p>
+        <?php if (isset($error)) { echo "<p style='color:red;'>$error</p>"; } ?>
+        <p>Don't have an account? <a href="register.php">Register here</a>.</p>
+    </form>
 </div>

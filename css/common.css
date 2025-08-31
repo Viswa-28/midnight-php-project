@@ -5,6 +5,9 @@
   font-family: 'Montserrat', sans-serif;
   scroll-behavior: smooth;
 }
+body {
+  background-color: #292929;
+}
 
 .fs-60 {
   font-size: clamp(1.25rem, 0.5093rem + 3.7037vw, 3.75rem);
@@ -554,6 +557,7 @@ footer .first-links p{
     flex-direction: column;
     text-align: center;
     gap: 30px;
+    align-items: center;
   }
 
   .footer .fourth-links ul {
@@ -565,6 +569,9 @@ footer .first-links p{
   .nav h2 {
     font-size: 14px;
     margin-left: 0;
+  }
+  .nav{
+    width: 100%;
   }
 
   .links li a {

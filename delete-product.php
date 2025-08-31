@@ -36,14 +36,35 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 }
 ?>
 
-<h2 class="delete-title">Delete Product</h2>
-<p class ="delete-title">Are you sure you want to delete the product <strong><?= htmlspecialchars($product['name']) ?></strong>?</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Product</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div class="parent">
+        <div class="sidebar">
+            <ul>
+                <li><a href="sales.php">Sales</a></li>
+                <li><a href="trending-products.php">Trending</a></li>
+                <li><a href="user-dash.php">Users</a></li>
+                <li><a href="contact.php">Contact</a></li>
+            </ul>
+        </div>
 
-<form method="post" action="delete-product.php" class="delete-form">
-    <input type="hidden" name="id" value="<?= $id ?>" class="delete-id">
-    <button type="submit" class="delete-button">Yes, Delete</button>
-    <a href="trending-products.php"><button type="button">Cancel</button></a>
-</form>
+        <div class="dashboard">
+            <h2>Delete Product</h2>
+            <p>Are you sure you want to delete the product <strong><?= htmlspecialchars($product['name']) ?></strong>?</p>
 
-
-?>
+            <form method="post" action="delete-product.php">
+                <input type="hidden" name="id" value="<?= $id ?>">
+                <button type="submit">Yes, Delete</button>
+                <a href="trending-products.php"><button type="button">Cancel</button></a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

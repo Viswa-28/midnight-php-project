@@ -1,78 +1,70 @@
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
 
-.modal.show {
-  display: block;
-}
 
-.inner-modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: 300px;
-}
 
-.close-modal {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  cursor: pointer;
-}
+    body {
+        background-color: #0f0f0f; /* Dark theme background */
+        font-family: "Montserrat", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
 
-.close-modal i {
-  color: #333;
-}
+    .login-form {
+        background: #1a1a1a;
+        padding: 40px 30px;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        width: 350px;
+        text-align: center;
+    }
 
-.modal-content {
-  padding: 20px;
-}
+    .login-form h2 {
+        color: #fff;
+        margin-bottom: 25px;
+        font-size: 24px;
+    }
 
-.modal-content h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
+    .login-form input {
+        width: 80%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 2px solid #333;
+        border-radius: 8px;
+        background: #0f0f0f;
+        color: #fff;
+        font-size: 14px;
+        outline: none;
+        transition: border 0.3s, box-shadow 0.3s;
+    }
 
-.modal-content form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+    .login-form input:focus {
+        border-color: #7C3AED;
+        box-shadow: 0 0 6px #7C3AED;
+    }
 
-.modal-content label {
-  margin-bottom: 10px;
-}
+    .login-form button {
+        width: 80%;
+        padding: 12px;
+        margin-top: 15px;
+        background: #7C3AED;
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+    }
 
-.modal-content input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
+    .login-form button:hover {
+        background: #5b21b6; /* darker violet */
+        transform: translateY(-2px);
+    }
 
-.modal-content button[type="submit"] {
-  background-color: #337ab7;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.modal-content button[type="submit"]:hover {
-  background-color: #23527c;
-}
+    .login-form .error {
+        color: #ff4d4d;
+        margin-top: 15px;
+        font-size: 14px;
+    }

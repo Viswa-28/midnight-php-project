@@ -1,57 +1,52 @@
 <?php
 include('include/config.php');
 include('include/head.php');
-
-
-
-
-
 ?>
+
 <div class="parent">
-    <div class="sidebar">
-<ul>
-<ul>
-  <li><a href="./dashboard.php">Sales </a></li>
-  <li><a href="./trending-products.php">trending</a></li>
-  <li><a href="./contact.php">contact</a></li>
-  <li><a href="">Sales 4</a></li>
-</ul>
+  <div class="sidebar">
+    <ul>
+      <li><a href="./sales.php">Sales</a></li>
+      <li><a href="./trending-products.php">Trending</a></li>
+      <li><a href="./user-dash.php">Users</a></li>
+      <li><a href="./contact.php">Contact</a></li>
+    </ul>
+  </div>
 
+  <div class="contact-dash">
+    <h2>User Messages</h2>
 
-</ul>
-</div>
+    <?php
+    $query = "SELECT * FROM messages";
+    $result = $conn->query($query);
 
-<div class="contact-dash">
+    if ($result && $result->num_rows > 0) {
+        echo "<table border='1' cellpadding='10' cellspacing='0'>
+                <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                  </tr>
+                </thead>
+                <tbody>";
 
-<?php
-$quary="SELECT * FROM messages";
-$result=$conn->query($quary);
+        while ($row = $result->fetch_assoc()) {
+            $name = htmlspecialchars($row['username']);
+            $email = htmlspecialchars($row['email']);
+            $message = htmlspecialchars($row['message']);
 
+            echo "<tr>
+                    <td>$name</td>
+                    <td>$email</td>
+                    <td>$message</td>
+                  </tr>";
+        }
 
-while($row=$result->fetch_assoc())
-    {
-        $name=$row['username'];
-        $email=$row['email'];
-        // $phone=$row['phone'];
-        $message=$row['message'];
-
-
-        echo "
-        <div class='message'>
-        <h2>$name</h2>
-        <p>$email</p>
-        <p>$message</p>
-        </div>
-        ";
-
-
+        echo "</tbody></table>";
+    } else {
+        echo "<p>No messages found.</p>";
     }
-?>
-
+    ?>
+  </div>
 </div>
-
-
-
-
-</div>
-

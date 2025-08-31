@@ -44,24 +44,25 @@ if (isset($_GET['id'])) {
     <p class="fs-25">Rs. <?php echo $price;   ?></p>
     <p class="description"><?php echo $description;   ?></p>
     <h3 class="product-size">Size</h3>
-    <form action="cart.php" method="post">
-
-
-      <div class="size-container">
+  <form action="cart.php" method="get">
+    <div class="size-container">
         <?php
         $sizes = ['Small', 'Medium', 'Large', 'X-large'];
         foreach ($sizes as $index => $size): ?>
-          <label class="size<?= $index === 0 ? ' active' : ''; ?>">
-            <input type="radio" name="size" value="<?= $size; ?>" <?= $index === 0 ? 'checked' : ''; ?>>
-            <p><?= $size; ?></p>
-          </label>
+            <label class="size<?= $index === 0 ? ' active' : ''; ?>">
+                <input type="radio" name="size" value="<?= $size; ?>" <?= $index === 0 ? 'checked' : ''; ?>>
+                <p><?= $size; ?></p>
+            </label>
         <?php endforeach; ?>
-      </div>
-      <input type="hidden" name="id" value="<?= $row['id']; ?>">
+    </div>
 
-      <!-- Buy Now Button -->
-      <a href="./cart.php?id=<?= $row['id']; ?>"><button class="primary-btn buy">Buy Now</button"></a>
-    </form>
+    <!-- Hidden product id field -->
+    <input type="hidden" name="id" value="<?= $id; ?>">
+
+    <!-- Submit Button -->
+    <button type="submit" class="primary-btn buy">Buy Now</button>
+</form>
+
     <!-- <div class="cart">
           <div class="count">
             <i class="bi bi-dash"></i>

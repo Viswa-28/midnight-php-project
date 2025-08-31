@@ -41,7 +41,14 @@ $(".promo button").click(function () {
   }
 });
 
-let upDate = parseInt($(".count p").text());
+// let upDate = parseInt($(".count p").text());
+
+
+
+
+let upDate = $(".count input").val();
+let newValue = document.getElementById("updatedValue");
+
 
 function updateCountDisplay() {
   $(".count p").text(upDate);
@@ -51,22 +58,28 @@ function updateCountDisplay() {
     $(".bi-dash").removeClass("disable");
   }
 }
+let price=$(".total-amount").text().slice(3);
+
 
 $(".bi-plus").click(function () {
   upDate++;
   updateCountDisplay();
-  $(".total-amount").text(`Rs. ${upDate * 2000}`);
-  $(".Subtotal").text(`Rs. ${upDate * 2000}`);
-  $(".total-val").text(`Rs. ${upDate * 2000}`);
+  $(".total-amount").text(`Rs. ${upDate * price}`);
+  $(".Subtotal").text(`Rs. ${upDate * price}`);
+  $(".total-val").text(`Rs. ${upDate * price}`);
+  newValue.value = upDate;  // Update input element's value
 });
+
 
 $(".bi-dash").click(function () {
   if (upDate > 1) {
     upDate--;
     updateCountDisplay();
-    $(".total-amount").text(`Rs. ${upDate * 2000}`);
-    $(".Subtotal").text(`Rs. ${upDate * 2000}`);
-    $(".total-val").text(`Rs. ${upDate * 2000}`);
+    $(".total-amount").text(`Rs. ${upDate * price}`);
+    $(".Subtotal").text(`Rs. ${upDate * price}`);
+    $(".total-val").text(`Rs. ${upDate * price}`);
+    newValue.value = upDate;  // Update input element's value
+    // console.log(upDate+"Newly Decreased");
   }
 });
 

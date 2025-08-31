@@ -21,7 +21,7 @@ include('include/config.php');
         // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         // insert data into database
-        $sql = "INSERT INTO register (username, email, password, role) VALUES ('$username', '$email', '$Password', '$role')";
+        $sql = "INSERT INTO register (username, email, password, role) VALUES ('$username', '$email', '$password', '$role')";
         if (mysqli_query($conn, $sql)) {
           echo "Registration successful!";
           header("Location: login.php");
@@ -53,6 +53,8 @@ include('include/config.php');
     <option value="admin">Admin</option>
   </select><br><br>
   <input type="submit" value="Register">
+
+  <p>Already have an account? <a href="login.php">Login here</a>.</p>
 </form>
 </main>
 

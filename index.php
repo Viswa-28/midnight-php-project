@@ -1,6 +1,7 @@
 <?php
 include('include/config.php');
 include('include/head.php');
+session_start();
 
 
 
@@ -28,7 +29,7 @@ include('include/navbar.php');
     </div>
   </div>
   <div class="banner-image">
-    <img src="./images/second-two.png" alt="Fashion Banner">
+    <img src="./images/banner-img.png" alt="Fashion Banner">
 
 
   </div>
@@ -88,7 +89,7 @@ include('include/navbar.php');
 
 
 
-<section class="third">
+<section class="third" id="third">
   <div class="tabs">
     <div class="btn men-btn secondary-btn active  ">Men</div>
     <div class="btn women-btn secondary-btn">Women</div>
@@ -187,73 +188,72 @@ include('include/navbar.php');
 </section>
 
 <?php
+// Start the session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (isset($_POST['submit'])) {
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $message = trim($_POST['message']);
+    $errors = [];
 
-  $name = trim($_POST['name']);
-  $email = trim($_POST['email']);
-  $message = trim($_POST['message']);
-   $errors = [];
-
-    // Username validation (only alphabets & underscore, 3–15 chars)
-    if (empty($username)) {
-        $errors['username'] = "Username is required.";
-    } elseif (!preg_match("/^[a-zA-Z][a-zA-Z_]{2,14}$/", $username)) {
-        $errors['username'] = "Enter a valid username (3-15 chars, letters & underscore only).";
+    // Validation
+    if (empty($name)) {
+        $errors['name'] = "Name is required.";
     }
 
-    // Email validation
     if (empty($email)) {
         $errors['email'] = "Email is required.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = "Enter a valid email address.";
     }
 
-    // Message validation
     if (empty($message)) {
         $errors['message'] = "Message is required.";
     } elseif (strlen($message) < 5) {
         $errors['message'] = "Message must be at least 5 characters.";
     }
 
-    // If no errors → success
     if (empty($errors)) {
-        // Example: store in DB or send email
-        echo json_encode([
-            "status" => "success",
-            "message" => "Form submitted successfully!"
-        ]);
-    } else {
-        // Return errors as JSON
-        echo json_encode([
-            "status" => "error",
-            "errors" => $errors
-        ]);
+        $sql = "INSERT INTO messages (`username`, `email`, `message`) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sss", $name, $email, $message);
+        
+        if ($stmt->execute()) {
+            $_SESSION['message_success'] = true;
+            // Redirect to prevent form resubmission
+            header("Location: " . $_SERVER['PHP_SELF'] . "#contact");
+            exit();
+        }
     }
-
-  // $sql = "INSERT INTO messages (username, email, message) VALUES ('$name', '$email', '$message')";
-  $sql = "INSERT INTO messages ( `username`, `email`, `message` ) VALUES ('$name','$email','$message')";
-  // echo "<script>alert('" . $sql . "');</script>";
-  // $result = $conn->query($sql);   
-  $result=mysqli_query($conn,$sql);   
-  if($result){
-    echo "<script>alert('Message sent successfully.');</script>";
-  }
 }
 
+// Display success message if it exists and then remove it
+if (isset($_SESSION['message_success'])) {
+    echo "<script>alert('Message sent successfully.');</script>";
+    unset($_SESSION['message_success']);
+}
 ?>
 
 
-<form id="contactForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+<form id="contactForm" action="<?php echo $_SERVER['PHP_SELF']; ?>#contact" method="post">
   <h2 class="section-title" id="contact">Contact</h2>
-  <input type="text" class="username" placeholder="Username" name="name">
-  <span class="error username-error"></span>
+  <input type="text" class="username" placeholder="Username" name="name" value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>">
+  <?php if (isset($errors['name'])): ?>
+    <span class="error username-error"><?php echo $errors['name']; ?></span>
+  <?php endif; ?>
 
-  <input type="email" class="email" placeholder="Email" name="email">
-  <span class="error email-error"></span>
+  <input type="email" class="email" placeholder="Email" name="email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
+  <?php if (isset($errors['email'])): ?>
+    <span class="error email-error"><?php echo $errors['email']; ?></span>
+  <?php endif; ?>
 
-  <textarea class="message" placeholder="Your Message" name="message"></textarea>
-  <span class="error message-error"></span>
+  <textarea class="message" placeholder="Your Message" name="message"><?php echo isset($_POST['message']) ? htmlspecialchars($_POST['message']) : ''; ?></textarea>
+  <?php if (isset($errors['message'])): ?>
+    <span class="error message-error"><?php echo $errors['message']; ?></span>
+  <?php endif; ?>
 
   <button type="submit" class="form-btn" name="submit">Submit</button>
 </form>
